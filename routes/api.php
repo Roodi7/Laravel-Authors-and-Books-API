@@ -21,7 +21,7 @@ Route::get('api/login', function () {
     return response("Unauthorized", 401);
 })->name('login');
 
-Route::middleware('auth:api')->prefix('v1')->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::get('user', function (Request $request) {
         return $request->user();
     });
