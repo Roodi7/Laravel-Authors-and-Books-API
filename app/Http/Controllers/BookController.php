@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
@@ -14,7 +15,7 @@ class BookController extends Controller
     public function index()
     {
         //
-        return Book::all();
+        return BookResource::collection(Book::all());
     }
 
     /**
@@ -31,6 +32,15 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         //
+        $book = Book::create([
+            'title' => $request->title . " " . rand(0, 500),
+            'description' => $request->description,
+            'publication_year' => $request->publication_year,
+            'author_id' => $request->author_id,
+        ]);
+
+        return new BookResource($book);
+
     }
 
     /**
@@ -39,6 +49,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+        return new BookResource($book);
     }
 
     /**
@@ -55,6 +66,15 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         //
+
+        $book->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'publication_year' => $request->publication_year,
+            'author_id' => $request->author_id,
+        ]);
+
+        return new BookResource($book);
     }
 
     /**

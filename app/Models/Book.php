@@ -8,5 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description','publication_year', 'author_id'];
+    protected $fillable = ['title', 'description', 'publication_year', 'author_id'];
+
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

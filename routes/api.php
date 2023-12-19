@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,9 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 });
 Route::get('/test', function () {
     echo "authenticated";
+});
+
+Route::get('/author/booksdetail',function (){
+    $a=Author::find(7);
+    return $a->books[4];
 });
